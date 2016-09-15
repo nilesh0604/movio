@@ -25,6 +25,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/searchResults/:searchCriteria', {
+        templateUrl: 'views/searchresults.html',
+        controller: 'SearchresultsCtrl',
+        controllerAs: 'searchResults'
+      })
       .otherwise({
         redirectTo: '/'
       });

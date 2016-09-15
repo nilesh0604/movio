@@ -1,10 +1,11 @@
 <div class="jumbotron">
     <h1>Search Repositories</h1>
     <p class="lead">
-        <input type="text" class="form-control" id="searchRepo" placeholder="Enter git repo here">
+        <input type="text" class="form-control" id="searchRepo" ng-model="searchCriteria" placeholder="Enter git repo here">
     </p>
     <p>
-        <button class="btn btn-lg btn-success" ng-href="#/">Search <span class="glyphicon glyphicon-search"></span></button>
+        <a class="btn btn-lg btn-success"  ng-href="#/searchResults/{{searchCriteria}}">Search <span class="glyphicon glyphicon-search"></span></a>
     </p>
+    
 </div>
 
