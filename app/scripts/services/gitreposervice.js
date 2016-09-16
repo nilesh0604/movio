@@ -20,6 +20,15 @@ angular.module('movioApp')
             return (request.then(handleSuccess, handleError));
         }
 
+        function getRepoComments (repoName, repoOwner) {
+        	var request = $http({
+                method: 'get',
+                url: 'https://api.github.com/repos/' + repoOwner + '/' + repoName + '/pulls/comments'
+            });
+
+            return (request.then(handleSuccess, handleError));
+        }
+
         function handleSuccess(response) {
             return (response.data);
         }
@@ -31,6 +40,7 @@ angular.module('movioApp')
         }
 
         return ({ 
-        	searchGitRepo: searchGitRepo 
+        	searchGitRepo: searchGitRepo,
+        	getRepoComments: getRepoComments
         });
     });

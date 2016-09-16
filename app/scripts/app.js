@@ -30,6 +30,11 @@ angular
         controller: 'SearchresultsCtrl',
         controllerAs: 'searchResults'
       })
+      .when('/repoComments/:repoName/:repoOwner', {
+        templateUrl: 'views/repocomments.html',
+        controller: 'RepocommentsCtrl',
+        controllerAs: 'repoComments'
+      })
       .otherwise({
         redirectTo: '/'
       });

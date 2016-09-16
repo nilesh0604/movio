@@ -1,0 +1,17 @@
+<h1>{{repoName}}/{{repoOwner}}</h1>
+<table class="table table-hover" ng-if="!loading">
+	<thead>
+		<tr>
+			<th>
+				Comments
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="comment in repoComments">
+			<td>
+				{{comment.body}}
+			</td>
+		</tr>
+	</tbody>
+</table>
