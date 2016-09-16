@@ -1,1 +1,30 @@
-<p>This is the searchResults view. {{searchCriteria}}</p>
+<h1>{{searchCriteria}}</h1>
+<div ng-if="!loading">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    URL
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="repo in searchResults">
+                <td class="text-left">
+                    {{repo.full_name}}
+                </td>
+                <td class="text-left">
+                    {{repo.clone_url}}
+                </td>
+                <td>
+                    <a class="btn btn-success" href="#" role="button">Go</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
