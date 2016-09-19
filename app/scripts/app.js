@@ -11,9 +11,10 @@
 angular
   .module('movioApp', [
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'satellizer'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $authProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -38,4 +39,9 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+    $authProvider.github({
+      clientId: 'c283f9efeb5d0328393e',
+      clientSecret: '71dfe43e177fdcdb39cc77772233fa49b252f23a'
+    });
   });

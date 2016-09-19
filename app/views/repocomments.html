@@ -1,16 +1,83 @@
-<h1>{{repoName}}/{{repoOwner}}</h1>
+<h1>{{repoOwner}}/{{repoName}}</h1>
 <table class="table table-hover" ng-if="!loading">
 	<thead>
 		<tr>
 			<th>
-				Comments
+				Content
+			</th>
+			<th>
+				emoji
+			</th>
+			<th>
+				Count
 			</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="comment in repoComments">
+		<tr >
 			<td>
-				{{comment.body}}
+				+1
+			</td>
+			<td>
+				<img class="emoji" title=":+1:" alt=":+1:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/1f44d.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.thumbsUp}}
+			</td>
+		</tr>
+		<tr >
+			<td>
+				-1
+			</td>
+			<td>
+				<img class="emoji" title=":-1:" alt=":-1:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/1f44e.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.thumbsDown}}
+			</td>
+		</tr>
+		<tr >
+			<td>
+				laugh
+			</td>
+			<td>
+				<img class="emoji" title=":smile:" alt=":smile:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/1f604.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.laugh}}
+			</td>
+		</tr>
+		<tr >
+			<td>
+				confused
+			</td>
+			<td>
+				<img class="emoji" title=":confused:" alt=":confused:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/1f615.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.confused}}
+			</td>
+		</tr>
+		<tr >
+			<td>
+				heart
+			</td>
+			<td>
+				<img class="emoji" title=":heart:" alt=":heart:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/2764.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.heart}}
+			</td>
+		</tr>
+		<tr >
+			<td>
+				hooray
+			</td>
+			<td>
+				<img class="emoji" title=":tada:" alt=":tada:" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/unicode/1f389.png" height="20" width="20" align="absmiddle">
+			</td>
+			<td>
+				{{reactions.hooray}}
 			</td>
 		</tr>
 	</tbody>
