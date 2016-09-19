@@ -16,8 +16,4 @@ describe('Controller: SearchresultsCtrl', function () {
       // place here mocked dependencies
     });
   }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(SearchresultsCtrl.awesomeThings.length).toBe(3);
-  });
 });

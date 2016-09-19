@@ -15,11 +15,6 @@ angular.module('movioApp')
     	$scope.loading = false;
         $scope.reactions = [];
 
-        function renderRepoComments(response) {
-            $scope.repoComments = response;
-            $scope.loading = false;
-        }
-
         function getRepoComments() {
         	$scope.loading = true;
             gitRepoService.getPullsReactions($scope.repoName, $scope.repoOwner);
@@ -29,8 +24,7 @@ angular.module('movioApp')
         $rootScope.$on('reactionsUpdated', function(event, arg){
             $scope.loading = false;
             $scope.reactions = arg;
-            console.log(arg);
-        })
+        });
 
         getRepoComments();
 

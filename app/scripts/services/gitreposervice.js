@@ -27,10 +27,6 @@ angular.module('movioApp')
             heart: 0,
             hooray: 0
         };
-        var reactionsReceived = false;
-
-        /*this.reactionsType = reactionsType;
-        this.reactionsReceived = reactionsReceived;*/
 
 
         function searchGitRepo(searchCriteria) {
@@ -45,11 +41,7 @@ angular.module('movioApp')
         function getRepoPulls() {
             var request = $http({
                 method: 'get',
-                url: 'https://api.github.com/repos/' + repoDetails.repoOwner + '/' + repoDetails.repoName + '/pulls',
-                params: {
-                    client_id: 'c283f9efeb5d0328393e',
-                    client_secret: '71dfe43e177fdcdb39cc77772233fa49b252f23a'
-                }
+                url: 'https://api.github.com/repos/' + repoDetails.repoOwner + '/' + repoDetails.repoName + '/pulls'
             });
 
             return (request.then(handleSuccess, handleError));
@@ -58,11 +50,7 @@ angular.module('movioApp')
         function getComments(pullRequestId) {
             var request = $http({
                 method: 'get',
-                url: 'https://api.github.com/repos/' + repoDetails.repoOwner + '/' + repoDetails.repoName + '/pulls/' + pullRequestId + '/comments',
-                params: {
-                    client_id: 'c283f9efeb5d0328393e',
-                    client_secret: '71dfe43e177fdcdb39cc77772233fa49b252f23a'
-                }
+                url: 'https://api.github.com/repos/' + repoDetails.repoOwner + '/' + repoDetails.repoName + '/pulls/' + pullRequestId + '/comments'
             });
 
             return (request.then(handleSuccess, handleError));
@@ -72,10 +60,6 @@ angular.module('movioApp')
             var request = $http({
                 method: 'get',
                 url: 'https://api.github.com/repos/' + repoDetails.repoOwner + '/' + repoDetails.repoName + '/pulls/comments/' + commentId + '/reactions',
-                params: {
-                    client_id: 'c283f9efeb5d0328393e',
-                    client_secret: '71dfe43e177fdcdb39cc77772233fa49b252f23a'
-                },
                 headers: {
                     'Accept': 'application/vnd.github.squirrel-girl-preview'
                 }
@@ -89,11 +73,9 @@ angular.module('movioApp')
                 commentsArrayIndex++;
 
                 if (response.length > 0) {
-                    
+
 
                     for (var i = response.length - 1; i >= 0; i--) {
-                        response[i].content
-
                         switch (response[i].content) {
                             case '+1':
                                 reactionsType.thumbsUp++;
@@ -117,16 +99,14 @@ angular.module('movioApp')
                 }
 
 
-                if (commentsArrayIndex === commentsId.length) {
+                if (commentsArrayIndex === 10) { //To limit the requests
                     commentsArrayIndex = 0;
-                    reactionsReceived = true;
                     $rootScope.$emit('reactionsUpdated', reactionsType);
-                    console.log(reactionsType);
                 } else {
                     getAllCommentsReaction();
 
                 }
-            })
+            });
         }
 
         function getCommentsId() {
@@ -136,26 +116,40 @@ angular.module('movioApp')
                     commentsId.push(response[i].id);
                 }
 
-                if (pullsArrayIndex === pullsId.length) {
-                    pullsArrayIndex = 0;
-                    getAllCommentsReaction();
+                if (commentsId.length) {
+                    if (pullsArrayIndex === 10) { //To limit the requests
+                        pullsArrayIndex = 0;
+                        getAllCommentsReaction();
+                    } else {
+                        getCommentsId();
+                    }
                 } else {
-                    getCommentsId();
+                    $rootScope.$emit('reactionsUpdated', reactionsType);
                 }
             });
         }
 
 
         function getPullsReactions(repoName, repoOwner) {
+            reactionsType.thumbsUp = 0;
+            reactionsType.thumbsDown = 0;
+            reactionsType.laugh = 0;
+            reactionsType.confused = 0;
+            reactionsType.heart = 0;
+            reactionsType.hooray = 0;
+
             repoDetails.repoName = repoName;
             repoDetails.repoOwner = repoOwner;
-            reactionsReceived = false;
             return getRepoPulls().then(function(response) {
                 for (var i = response.length - 1; i >= 0; i--) {
                     pullsId.push(response[i].number);
                 }
-                getCommentsId();
-            })
+                if (pullsId.length) {
+                    getCommentsId();
+                } else {
+                    $rootScope.$emit('reactionsUpdated', reactionsType);
+                }
+            });
         }
 
         function getRepoComments(repoName, repoOwner) {
@@ -166,16 +160,6 @@ angular.module('movioApp')
 
             return (request.then(handleSuccess, handleError));
         }
-
-
-
-
-
-
-
-
-
-
 
 
         function handleSuccess(response) {
